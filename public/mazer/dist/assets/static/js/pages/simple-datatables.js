@@ -1,6 +1,9 @@
 let dataTable = new simpleDatatables.DataTable(
   document.getElementById("table1")
 )
+
+// Make dataTable available globally
+window.dataTable = dataTable;
 // Move "per page dropdown" selector element out of label
 // to make it work with bootstrap 5. Add bs5 classes.
 function adaptPageDropdown() {

@@ -29,7 +29,13 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ asset('mazer/dist/assets/compiled/svg/logo.svg') }}" alt="Logo" srcset=""></a>
+                            <a href="{{ route('dashboard') }}" class="text-decoration-none d-flex align-items-center">
+                                <img src="{{ Auth::user()->employee && Auth::user()->employee->gender == 'female' ? asset('mazer/dist/assets/compiled/jpg/5.jpg') : asset('mazer/dist/assets/compiled/jpg/2.jpg') }}" alt="User Avatar" class="rounded-circle me-2" style="width: 50px; height: 50px; object-fit: cover;">
+                                <div>
+                                    <div class="fw-bold text-primary" style="font-size: 15px;">{{ Auth::user()->employee->employee_code ?? 'N/A' }}</div>
+                                    <div class="text-muted" style="font-size: 10px;">{{ Auth::user()->role ?? 'User' }}</div>
+                                </div>
+                            </a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -69,24 +75,49 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li
-                            class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            class="sidebar-item {{ request()->is('dashboard*') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
                         <li
-                            class="sidebar-item">
-                            <a href="index.html" class='sidebar-link'>
+                            class="sidebar-item {{ request()->is('employees*') ? 'active' : '' }}">
+                            <a href="{{ route('employees.index') }}" class='sidebar-link'>
                                 <i class="bi bi-bank2"></i>
                                 <span>Employees</span>
                             </a>
                         </li>
 
                         <li
+                            class="sidebar-item {{ request()->is('units*') ? 'active' : '' }}">
+                            <a href="{{ route('units.index') }}" class='sidebar-link'>
+                                <i class="bi bi-building"></i>
+                                <span>Units</span>
+                            </a>
+                        </li>
+
+                        <li
+                            class="sidebar-item {{ request()->is('positions*') ? 'active' : '' }}">
+                            <a href="{{ route('positions.index') }}" class='sidebar-link'>
+                                <i class="bi bi-briefcase-fill"></i>
+                                <span>Positions</span>
+                            </a>
+                        </li>
+
+                        <li
+                            class="sidebar-item {{ request()->is('users*') ? 'active' : '' }}">
+                            <a href="{{ route('users.index') }}" class='sidebar-link'>
+                                <i class="bi bi-people-fill"></i>
+                                <span>Users</span>
+                            </a>
+                        </li>
+
+                        <li
                             class="sidebar-item">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="{{ route('logout.get') }}" class='sidebar-link'
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Logout</span>
                             </a>
@@ -138,6 +169,9 @@
         });
     </script>
 
+    <!-- Untuk handle sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Need: Choices.js -->
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
@@ -176,6 +210,16 @@
                 });
             }
 
+            const employeeSelect = document.getElementById('employee_id');
+            if (employeeSelect) {
+                new Choices(employeeSelect, {
+                    searchEnabled: true,
+                    searchPlaceholderValue: 'Search employees...',
+                    removeItemButton: false,
+                    shouldSort: false
+                });
+            }
+
             // Initialize Choices.js on elements with the class 'enhanced-select'
             var elements = document.querySelectorAll('.enhanced-select');
             elements.forEach(function(element) {
@@ -185,6 +229,13 @@
             });
         });
     </script>
+
+    <!-- Logout Form -->
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+
+@stack('scripts')
 
 </body>
 

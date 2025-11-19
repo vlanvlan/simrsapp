@@ -80,4 +80,16 @@ class EmployeeController extends Controller
         $employee->update($validatedData);
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
+
+    public function destroy(Employee $employee)
+    {
+        $employee->delete();
+
+        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
+    }
+
+    public function show(Employee $employee)
+    {
+        return view('employees.show', compact('employee'));
+    }
 }

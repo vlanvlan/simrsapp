@@ -6,23 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Unit extends Model
+class PositionLevel extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
         'code',
-        'description',
-        'unit_type_id',
-        'parent_id',
-        'cost_center_code',
-        'is_service_unit',
-        'is_active',
+        'rank_order',
     ];
-
-    public function unitType()
-    {
-        return $this->belongsTo(UnitType::class);
-    }
 }

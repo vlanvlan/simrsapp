@@ -14,5 +14,28 @@ class Position extends Model
         'name',
         'code',
         'description',
+        'is_managerial',
+        'position_level_id',
+        'parent_id',
     ];
+
+    public function positionLevel()
+    {
+        return $this->belongsTo(PositionLevel::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Position::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Position::class, 'parent_id');
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

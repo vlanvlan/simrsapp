@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('positions_levels', function (Blueprint $table) {
+        Schema::create('position_levels', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
             $table->string('name');
@@ -22,7 +22,7 @@ return new class extends Migration
 
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('position_level_id')->constrained('positions_levels');
+            $table->foreignId('position_level_id')->constrained('position_levels');
             $table->string('code')->unique();
             $table->string('name');
             $table->foreignId('parent_id')->nullable()->constrained('positions')->nullOnDelete();
@@ -39,6 +39,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('positions');
-        Schema::dropIfExists('positions_levels');
+        Schema::dropIfExists('position_levels');
     }
 };
