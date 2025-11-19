@@ -2,12 +2,6 @@
 
 @section('content')
 
-<header class="mb-3">
-    <a href="#" class="burger-btn d-block d-xl-none">
-        <i class="bi bi-justify fs-3"></i>
-    </a>
-</header>
-
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -58,7 +52,7 @@
                     <div class="mb-3">
                         <label for="position_id" class="form-label">Position</label>
                         <select class="form-select" id="position_id" name="position_id" required>
-                            <option value="" disabled selected>Select Position</option>
+                            <option value="" disabled {{ old('position_id', $employee->position_id) ? '' : 'selected' }}>Select Position</option>
                             @foreach ($positions as $position)
                                 <option value="{{ $position->id }}" @if(old('position_id', $employee->position_id) == $position->id) selected @endif>{{ $position->name }}</option>
                             @endforeach
@@ -71,7 +65,7 @@
                     <div class="mb-3">
                         <label for="unit_id" class="form-label">Unit</label>
                         <select class="form-select" id="unit_id" name="unit_id" required>
-                            <option value="" disabled selected>Select Unit</option>
+                            <option value="" disabled {{ old('unit_id', $employee->unit_id) ? '' : 'selected' }}>Select Unit</option>
                             @foreach ($units as $unit)
                                 <option value="{{ $unit->id }}" @if(old('unit_id', $employee->unit_id) == $unit->id) selected @endif>{{ $unit->name }}</option>
                             @endforeach
@@ -84,7 +78,7 @@
                     <div class="mb-3">
                         <label for="employment_status" class="form-label">Employment Status</label>
                         <select class="form-select" id="employment_status" name="employment_status" required>
-                            <option value="" disabled selected>Select Status</option>
+                            <option value="" disabled {{ old('employment_status', $employee->employment_status) ? '' : 'selected' }}>Select Status</option>
                             <option value="permanent" @if(old('employment_status', $employee->employment_status) == 'permanent') selected @endif>Permanent</option>
                             <option value="contract" @if(old('employment_status', $employee->employment_status) == 'contract') selected @endif>Contract</option>
                             <option value="intern" @if(old('employment_status', $employee->employment_status) == 'intern') selected @endif>Internship</option>
@@ -129,7 +123,7 @@
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
                         <select class="form-select" id="gender" name="gender" required>
-                            <option value="" disabled selected>Select Gender</option>
+                            <option value="" disabled {{ old('gender', $employee->gender) ? '' : 'selected' }}>Select Gender</option>
                             <option value="male" @if(old('gender', $employee->gender) == 'male') selected @endif>Male</option>
                             <option value="female" @if(old('gender', $employee->gender) == 'female') selected @endif>Female</option>
                         </select>
@@ -173,7 +167,7 @@
                     <div class="mb-3">
                         <label for="supervisor_name" class="form-label">Supervisor Name</label>
                         <select class="form-select" id="supervisor_id" name="supervisor_id">
-                            <option value="" disabled selected>Select Supervisor</option>
+                            <option value="" disabled {{ old('supervisor_id', $employee->supervisor_id) ? '' : 'selected' }}>Select Supervisor</option>
                             @foreach ($employees as $supervisor)
                                 <option value="{{ $supervisor->id }}" @if(old('supervisor_id', $employee->supervisor_id) == $supervisor->id) selected @endif>{{ $supervisor->name }}</option>
                             @endforeach

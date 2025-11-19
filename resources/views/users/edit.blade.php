@@ -2,12 +2,6 @@
 
 @section('content')
 
-<header class="mb-3">
-    <a href="#" class="burger-btn d-block d-xl-none">
-        <i class="bi bi-justify fs-3"></i>
-    </a>
-</header>
-
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -102,9 +96,9 @@
                     <div class="mb-3">
                         <label for="employee_id" class="form-label">Employee</label>
                         <select class="form-select" id="employee_id" name="employee_id" required>
-                            <option value="" disabled {{ old('employee_id') ? '' : 'selected' }}>Select Employee</option>
+                            <option value="" disabled {{ old('employee_id', $user->employee_id) ? '' : 'selected' }}>Select Employee</option>
                             @foreach ($employees as $employee)
-                                <option value="{{ $employee->id }}" {{ old('employee_id') == $employee->id ? 'selected' : '' }}>
+                                <option value="{{ $employee->id }}" {{ old('employee_id', $user->employee_id) == $employee->id ? 'selected' : '' }}>
                                     {{ $employee->name }} ({{ $employee->employee_code }})
                                 </option>
                             @endforeach

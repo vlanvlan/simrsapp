@@ -2,12 +2,6 @@
 
 @section('content')
 
-<header class="mb-3">
-    <a href="#" class="burger-btn d-block d-xl-none">
-        <i class="bi bi-justify fs-3"></i>
-    </a>
-</header>
-
 <div class="page-heading">
     <h3>Profile Statistics</h3>
 </div>
@@ -110,7 +104,7 @@
                                         <svg class="bi text-primary" width="32" height="32" fill="blue"
                                             style="width:10px">
                                             <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
+                                                xlink:href="{{ asset('mazer/dist/assets/static/images/bootstrap-icons.svg#circle-fill') }}" />
                                         </svg>
                                         <h5 class="mb-0 ms-3">Europe</h5>
                                     </div>
@@ -128,7 +122,7 @@
                                         <svg class="bi text-success" width="32" height="32" fill="blue"
                                             style="width:10px">
                                             <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
+                                                xlink:href="{{ asset('mazer/dist/assets/static/images/bootstrap-icons.svg#circle-fill') }}" />
                                         </svg>
                                         <h5 class="mb-0 ms-3">America</h5>
                                     </div>
@@ -146,7 +140,7 @@
                                         <svg class="bi text-danger" width="32" height="32" fill="blue"
                                             style="width:10px">
                                             <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
+                                                xlink:href="{{ asset('mazer/dist/assets/static/images/bootstrap-icons.svg#circle-fill') }}" />
                                         </svg>
                                         <h5 class="mb-0 ms-3">Indonesia</h5>
                                     </div>
@@ -273,6 +267,14 @@
         </div>
     </section>
 </div>
+
+    @section('scripts')
+
+    <!-- Dashboard specific scripts -->
+    <script src="{{ asset('mazer/dist/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('mazer/dist/assets/static/js/pages/dashboard.js') }}"></script>
+
+    @endsection
 
 @endsection
 
