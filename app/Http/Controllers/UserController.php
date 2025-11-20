@@ -28,7 +28,8 @@ class UserController extends Controller
             (object)['name' => 'superadmin'],
         ]);
 
-        $employees = Employee::all();
+        // Only get employees who don't have a user account yet
+        $employees = Employee::whereDoesntHave('user')->get();
 
         return view('users.create', compact('roles', 'employees'));
     }
@@ -40,7 +41,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|in:user,admin,superadmin',
-            'employee_id' => 'required|exists:employees,id',
+            'employee_id' => 'required|exists:employees,id|unique:users,employee_id',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -60,7 +61,13 @@ class UserController extends Controller
             (object)['name' => 'superadmin'],
         ]);
 
-        $employees = Employee::all();
+        // Get employees who don't have a user account, plus the current user's employee
+        $employees = Employee::where(function($query) use ($id) {
+            $query->whereDoesntHave('user')
+                  ->orWhereHas('user', function($q) use ($id) {
+                      $q->where('id', $id);
+                  });
+        })->get();
 
         return view('users.edit', compact('user', 'roles', 'employees'));
     }
@@ -77,7 +84,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
             'role' => 'required|in:user,admin,superadmin',
-            'employee_id' => 'required|exists:employees,id',
+            'employee_id' => 'required|exists:employees,id|unique:users,employee_id,' . $id,
             'status' => 'required|in:active,inactive',
         ]);
 
