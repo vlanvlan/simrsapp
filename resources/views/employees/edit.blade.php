@@ -19,172 +19,202 @@
             </div>
         </div>
     </div>
-    <section class="section">
-        <div class="card">
-            <div class="card-body">
 
-                @if(session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+    <!-- Basic Tables start -->
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
 
-                <form action="{{ route('employees.update', $employee->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+                            <form class="form" action="{{ route('employees.update', $employee->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
 
-                    <div class="mb-3">
-                        <label for="employee_code" class="form-label">Employee Code</label>
-                        <input type="text" class="form-control" id="employee_code" name="employee_code" value="{{ old('employee_code', $employee->employee_code) }}" required>
-                        @error('employee_code')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="employee_code">Employee Code</label>
+                                            <input type="text" id="employee_code" class="form-control" name="employee_code" value="{{ old('employee_code', $employee->employee_code) }}" required>
+                                            @error('employee_code')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $employee->name) }}" required>
-                        @error('name')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" id="name" class="form-control" name="name" value="{{ old('name', $employee->name) }}" required>
+                                            @error('name')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="position_id" class="form-label">Position</label>
-                        <select class="form-select" id="position_id" name="position_id" required>
-                            <option value="" disabled {{ old('position_id', $employee->position_id) ? '' : 'selected' }}>Select Position</option>
-                            @foreach ($positions as $position)
-                                <option value="{{ $position->id }}" @if(old('position_id', $employee->position_id) == $position->id) selected @endif>{{ $position->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('position_id')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="position_id">Position</label>
+                                            <select class="form-select" id="position_id" name="position_id" required>
+                                                <option value="{{ old('position_id', $employee->position_id) }}" selected>{{ $employee->position->name }}</option>
+                                                @foreach ($positions as $position)
+                                                    <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('position_id')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="unit_id" class="form-label">Unit</label>
-                        <select class="form-select" id="unit_id" name="unit_id" required>
-                            <option value="" disabled {{ old('unit_id', $employee->unit_id) ? '' : 'selected' }}>Select Unit</option>
-                            @foreach ($units as $unit)
-                                <option value="{{ $unit->id }}" @if(old('unit_id', $employee->unit_id) == $unit->id) selected @endif>{{ $unit->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('unit_id')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="unit_id">Unit</label>
+                                            <select class="form-select" id="unit_id" name="unit_id" required>
+                                                <option value="{{ old('unit_id', $employee->unit_id) }}" selected>{{ $employee->unit->name }}</option>
+                                                @foreach ($units as $unit)
+                                                    <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('unit_id')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="employment_status" class="form-label">Employment Status</label>
-                        <select class="form-select" id="employment_status" name="employment_status" required>
-                            <option value="" disabled {{ old('employment_status', $employee->employment_status) ? '' : 'selected' }}>Select Status</option>
-                            <option value="permanent" @if(old('employment_status', $employee->employment_status) == 'permanent') selected @endif>Permanent</option>
-                            <option value="contract" @if(old('employment_status', $employee->employment_status) == 'contract') selected @endif>Contract</option>
-                            <option value="intern" @if(old('employment_status', $employee->employment_status) == 'intern') selected @endif>Internship</option>
-                        </select>
-                        @error('employment_status')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="hire_date">Hire Date</label>
+                                            <input type="date" id="hire_date" class="form-control datepicker" name="hire_date" value="{{ old('hire_date', $employee->hire_date) }}" placeholder="Hire Date" required>
+                                            @error('hire_date')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="hire_date" class="form-label">Hire Date</label>
-                        <input type="date" class="form-control datepicker" id="hire_date" name="hire_date" value="{{ old('hire_date', $employee->hire_date) }}" required>
-                        @error('hire_date')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="end_date">End Date</label>
+                                            <input type="date" id="end_date" class="form-control datepicker" name="end_date" value="{{ old('end_date', $employee->end_date) }}" placeholder="End Date">
+                                            @error('end_date')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="end_date" class="form-label">End Date</label>
-                        <input type="date" class="form-control datepicker" id="end_date" name="end_date" value="{{ old('end_date', $employee->end_date) }}">
-                        @error('end_date')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="employment_status">Employment Status</label>
+                                            <select class="form-select" id="employment_status" name="employment_status" required>
+                                                <option value="{{ old('employment_status', $employee->employment_status) }}" selected>{{ ucfirst($employee->employment_status) }}</option>
+                                                <option value="permanent">Permanent</option>
+                                                <option value="contract">Contract</option>
+                                                <option value="internship">Internship</option>
+                                            </select>
+                                            @error('employment_status')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="nik" class="form-label">NIK</label>
-                        <input type="text" class="form-control" id="nik" name="nik" value="{{ old('nik', $employee->nik) }}" required>
-                        @error('nik')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="gender">Gender</label>
+                                            <select class="form-select" id="gender" name="gender" required>
+                                                <option value="{{ old('gender', $employee->gender) }}" selected>{{ ucfirst($employee->gender) }}</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                            @error('gender')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="npwp" class="form-label">NPWP</label>
-                        <input type="text" class="form-control" id="npwp" name="npwp" value="{{ old('npwp', $employee->npwp) }}">
-                        @error('npwp')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="nik">NIK</label>
+                                            <input type="text" id="nik" class="form-control" name="nik" value="" placeholder="NIK" required>
+                                            @error('nik')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="gender" class="form-label">Gender</label>
-                        <select class="form-select" id="gender" name="gender" required>
-                            <option value="" disabled {{ old('gender', $employee->gender) ? '' : 'selected' }}>Select Gender</option>
-                            <option value="male" @if(old('gender', $employee->gender) == 'male') selected @endif>Male</option>
-                            <option value="female" @if(old('gender', $employee->gender) == 'female') selected @endif>Female</option>
-                        </select>
-                        @error('gender')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="npwp">NPWP</label>
+                                            <input type="text" id="npwp" class="form-control" name="npwp" value="" placeholder="NPWP">
+                                            @error('npwp')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="birth_place" class="form-label">Birth Place</label>
-                        <input type="text" class="form-control" id="birth_place" name="birth_place" value="{{ old('birth_place', $employee->birth_place) }}" required>
-                        @error('birth_place')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="birth_place">Birth Place</label>
+                                            <input type="text" id="birth_place" class="form-control" name="birth_place" value="" placeholder="Birth Place" required>
+                                            @error('birth_place')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="birth_date" class="form-label">Birth Date</label>
-                        <input type="date" class="form-control datepicker" id="birth_date" name="birth_date" value="{{ old('birth_date', $employee->birth_date) }}" required>
-                        @error('birth_date')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="birth_date">Birth Date</label>
+                                            <input type="date" id="birth_date" class="form-control datepicker" name="birth_date" value="" placeholder="Birth Date" required>
+                                            @error('birth_date')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <textarea class="form-control" id="address" name="address" rows="3" required>{{ old('address', $employee->address) }}</textarea>
-                        @error('address')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <input type="text" id="address" class="form-control" name="address" value="" placeholder="Address" required>
+                                            @error('address')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $employee->phone) }}">
-                        @error('phone')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" id="phone" class="form-control" name="phone" value="" placeholder="Phone" required>
+                                            @error('phone')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="supervisor_name" class="form-label">Supervisor Name</label>
-                        <select class="form-select" id="supervisor_id" name="supervisor_id">
-                            <option value="" disabled {{ old('supervisor_id', $employee->supervisor_id) ? '' : 'selected' }}>Select Supervisor</option>
-                            @foreach ($employees as $supervisor)
-                                <option value="{{ $supervisor->id }}" @if(old('supervisor_id', $employee->supervisor_id) == $supervisor->id) selected @endif>{{ $supervisor->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('supervisor_id')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                        @enderror
-                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="supervisor_name">Supervisor Name</label>
+                                            <select class="form-select" id="supervisor_id" name="supervisor_id">
+                                                <option value="" selected>Select Supervisor</option>
+                                                @foreach ($employees as $supervisor)
+                                                    <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('supervisor_id')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                    </div>
 
-                    <button type="submit" class="btn btn-primary">Update Employee</button>
-                    <a href="{{ route('employees.index') }}" class="btn btn-secondary">Back To List</a>
-                </form>
-
-            </div>
-        </div>
+                                    <div class="col-12 d-flex justify-content-start">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Update Employee</button>
+                                        <a href="{{ route('employees.index') }}" class="btn btn-secondary me-1 mb-1">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
 
     </section>
+
 </div>
 
 @endsection

@@ -77,26 +77,46 @@
                         </li>
 
                         <li
-                            class="sidebar-item {{ request()->is('employees*') ? 'active' : '' }}">
-                            <a href="{{ route('employees.index') }}" class='sidebar-link'>
+                            class="sidebar-item has-sub {{ request()->is('employees*') || request()->is('units*') || request()->is('positions*') ? 'active' : '' }}">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Master Data</span>
+                            </a>
+
+                            <ul class="submenu">
+
+                                <li
+                                    class="submenu-item {{ request()->is('employees*') ? 'active' : '' }}">
+                                    <a href="{{ route('employees.index') }}" class='submenu-link'>
+                                        <i class="bi bi-people-fill"></i>
+                                        <span>Employees</span>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="submenu-item {{ request()->is('units*') ? 'active' : '' }}">
+                                    <a href="{{ route('units.index') }}" class='submenu-link'>
+                                        <i class="bi bi-building"></i>
+                                        <span>Units</span>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="submenu-item {{ request()->is('positions*') ? 'active' : '' }}">
+                                    <a href="{{ route('positions.index') }}" class='submenu-link'>
+                                        <i class="bi bi-briefcase-fill"></i>
+                                        <span>Positions</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li
+                            class="sidebar-item {{ request()->is('banks*') ? 'active' : '' }}">
+                            <a href="{{ route('banks.index') }}" class='sidebar-link'>
                                 <i class="bi bi-bank2"></i>
-                                <span>Employees</span>
-                            </a>
-                        </li>
-
-                        <li
-                            class="sidebar-item {{ request()->is('units*') ? 'active' : '' }}">
-                            <a href="{{ route('units.index') }}" class='sidebar-link'>
-                                <i class="bi bi-building"></i>
-                                <span>Units</span>
-                            </a>
-                        </li>
-
-                        <li
-                            class="sidebar-item {{ request()->is('positions*') ? 'active' : '' }}">
-                            <a href="{{ route('positions.index') }}" class='sidebar-link'>
-                                <i class="bi bi-briefcase-fill"></i>
-                                <span>Positions</span>
+                                <span>Banks</span>
                             </a>
                         </li>
 

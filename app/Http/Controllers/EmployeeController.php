@@ -21,7 +21,8 @@ class EmployeeController extends Controller
     {
         $positions = Position::all();
         $units = Unit::all();
-        return view('employees.create', compact('positions', 'units'));
+        $employees = Employee::all(); // For supervisor selection
+        return view('employees.create', compact('positions', 'units', 'employees'));
     }
 
     public function store(Request $request)
@@ -41,6 +42,7 @@ class EmployeeController extends Controller
             'birth_date' => 'nullable|date',
             'address' => 'nullable|string|max:500',
             'phone' => 'nullable|string|max:20',
+            'supervisor_id' => 'nullable|exists:employees,id',
         ]);
 
         // Create the employee
