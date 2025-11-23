@@ -121,6 +121,30 @@
                         </li>
 
                         <li
+                            class="sidebar-item {{ request()->is('financial-institutions*') ? 'active' : '' }}">
+                            <a href="{{ route('financial-institutions.index') }}" class='sidebar-link'>
+                                <i class="bi bi-building-fill"></i>
+                                <span>Financial Institutions</span>
+                            </a>
+                        </li>
+
+                        <li
+                            class="sidebar-item {{ request()->is('financial-branches*') ? 'active' : '' }}">
+                            <a href="{{ route('financial-branches.index') }}" class='sidebar-link'>
+                                <i class="bi bi-diagram-3-fill"></i>
+                                <span>Financial Branches</span>
+                            </a>
+                        </li>
+
+                        <li
+                            class="sidebar-item {{ request()->is('input-saldo*') ? 'active' : '' }}">
+                            <a href="{{ route('input-saldo.index') }}" class='sidebar-link'>
+                                <i class="bi bi-wallet2"></i>
+                                <span>Saldo</span>
+                            </a>
+                        </li>
+
+                        <li
                             class="sidebar-item {{ request()->is('users*') ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}" class='sidebar-link'>
                                 <i class="bi bi-people-fill"></i>

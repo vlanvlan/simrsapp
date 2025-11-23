@@ -35,8 +35,11 @@ class BankController extends Controller
             'opened_date' => 'nullable|date',
             'closed_date' => 'nullable|date|after_or_equal:opened_date',
             'notes' => 'nullable|string',
-            'is_active' => 'required|in:Y,N',
+            'is_active' => 'required|in:0,1',
         ]);
+
+        // Convert is_active to boolean
+        $validated['is_active'] = (bool) $validated['is_active'];
 
         Bank::create($validated);
         return redirect()->route('banks.index')->with('success', 'Bank account created successfully.');
@@ -65,8 +68,11 @@ class BankController extends Controller
             'opened_date' => 'nullable|date',
             'closed_date' => 'nullable|date|after_or_equal:opened_date',
             'notes' => 'nullable|string',
-            'is_active' => 'required|in:Y,N',
+            'is_active' => 'required|in:0,1',
         ]);
+
+        // Convert is_active to boolean
+        $validated['is_active'] = (bool) $validated['is_active'];
 
         $bank->update($validated);
         return redirect()->route('banks.index')->with('success', 'Bank account updated successfully.');

@@ -8,6 +8,9 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\FinancialInstitutionController;
+use App\Http\Controllers\FinancialBranchController;
+use App\Http\Controllers\InputSaldoController;
 
 
 Route::get('/', function () {
@@ -32,6 +35,16 @@ Route::middleware('auth')->group(function () {
 
     // Bank Account Routes
     Route::resource('/banks', BankController::class);
+
+    // Financial Institution Routes
+    Route::resource('/financial-institutions', FinancialInstitutionController::class);
+
+    // Financial Branch Routes
+    Route::get('/financial-branches/next-code', [FinancialBranchController::class, 'getNextCode'])->name('financial-branches.next-code');
+    Route::resource('/financial-branches', FinancialBranchController::class);
+
+    // Input Saldo Routes
+    Route::get('/input-saldo', [InputSaldoController::class, 'index'])->name('input-saldo.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

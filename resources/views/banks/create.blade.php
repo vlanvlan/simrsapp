@@ -80,6 +80,21 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="branch_id" class="form-label">Branch</label>
+                        <select class="form-select" id="branch_id" name="branch_id" required>
+                            <option value="">Select Branch</option>
+                            @foreach($branches as $branch)
+                                <option value="{{ $branch->id }}" data-institution-id="{{ $branch->institution_id }}" {{ old('branch_id') == $branch->id ? 'selected' : '' }}>
+                                    {{ $branch->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('branch_id')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label for="account_type" class="form-label">Account Type</label>
                         <input type="text" class="form-control" id="account_type" name="account_type" value="{{ old('account_type') }}" required>
                         @error('account_type')
@@ -91,12 +106,8 @@
                         <label for="currency" class="form-label">Currency</label>
                         <select class="form-select" id="currency" name="currency" required>
                             <option value="">Select Currency</option>
-                                <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>USD</option>
-                                <option value="EUR" {{ old('currency') == 'EUR' ? 'selected' : '' }}>EUR</option>
-                                <option value="GBP" {{ old('currency') == 'GBP' ? 'selected' : '' }}>GBP</option>
                                 <option value="IDR" {{ old('currency') == 'IDR' ? 'selected' : '' }}>IDR</option>
-                                <option value="JPY" {{ old('currency') == 'JPY' ? 'selected' : '' }}>JPY</option>
-                                <option value="CNY" {{ old('currency') == 'CNY' ? 'selected' : '' }}>CNY</option>
+                                <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>USD</option>
                                 </option>
                         </select>
                         @error('currency')
@@ -141,5 +152,44 @@
     </section>
 </div>
 
+@endsection
+
+@section('scripts')
+
+<!-- Simple script to filter branches based on selected institution -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const institutionSelect = document.getElementById('institution_id');
+    const branchSelect = document.getElementById('branch_id');
+    const branchOptions = Array.from(branchSelect.options).slice(1);
+
+    institutionSelect.addEventListener('change', function() {
+        const selectedInstitutionId = this.value;
+
+        // Clear current options
+        branchSelect.innerHTML = '<option value="">Select Branch</option>';
+
+        if (selectedInstitutionId) {
+            // Add matching branches
+            branchOptions.forEach(function(option) {
+                if (option.dataset.institutionId == selectedInstitutionId) {
+                    branchSelect.appendChild(option.cloneNode(true));
+                }
+            });
+        } else {
+            // Show all branches
+            branchOptions.forEach(function(option) {
+                branchSelect.appendChild(option.cloneNode(true));
+            });
+        }
+
+        // Update Choices.js
+        if (window.branchChoices) {
+            window.branchChoices.destroy();
+            window.branchChoices = new Choices(branchSelect);
+        }
+    });
+});
+</script>
 @endsection
 

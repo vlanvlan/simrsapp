@@ -135,7 +135,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="nik">NIK</label>
-                                            <input type="text" id="nik" class="form-control" name="nik" value="" placeholder="NIK" required>
+                                            <input type="text" id="nik" class="form-control" name="nik" value="{{ old('nik', $employee->nik) }}" required>
                                             @error('nik')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
@@ -145,7 +145,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="npwp">NPWP</label>
-                                            <input type="text" id="npwp" class="form-control" name="npwp" value="" placeholder="NPWP">
+                                            <input type="text" id="npwp" class="form-control" name="npwp" value="{{ old('npwp', $employee->npwp) }}" required>
                                             @error('npwp')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
@@ -155,7 +155,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="birth_place">Birth Place</label>
-                                            <input type="text" id="birth_place" class="form-control" name="birth_place" value="" placeholder="Birth Place" required>
+                                            <input type="text" id="birth_place" class="form-control" name="birth_place" value="{{ old('birth_place', $employee->birth_place) }}" required>
                                             @error('birth_place')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
@@ -165,7 +165,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="birth_date">Birth Date</label>
-                                            <input type="date" id="birth_date" class="form-control datepicker" name="birth_date" value="" placeholder="Birth Date" required>
+                                            <input type="date" id="birth_date" class="form-control datepicker" name="birth_date" value="{{ old('birth_date', $employee->birth_date) }}" required>
                                             @error('birth_date')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
@@ -175,7 +175,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="address">Address</label>
-                                            <input type="text" id="address" class="form-control" name="address" value="" placeholder="Address" required>
+                                            <input type="text" id="address" class="form-control" name="address" value="{{ old('address', $employee->address) }}" required>
                                             @error('address')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
@@ -185,7 +185,7 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
-                                            <input type="text" id="phone" class="form-control" name="phone" value="" placeholder="Phone" required>
+                                            <input type="text" id="phone" class="form-control" name="phone" value="{{ old('phone', $employee->phone) }}" required>
                                             @error('phone')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
@@ -196,15 +196,17 @@
                                         <div class="form-group">
                                             <label for="supervisor_name">Supervisor Name</label>
                                             <select class="form-select" id="supervisor_id" name="supervisor_id">
-                                                <option value="" selected>Select Supervisor</option>
+                                                <option value="" {{ old('supervisor_id', $employee->supervisor_id) ? '' : 'selected' }}>No Supervisor</option>
                                                 @foreach ($employees as $supervisor)
-                                                    <option value="{{ $supervisor->id }}">{{ $supervisor->name }}</option>
+                                                    <option value="{{ $supervisor->id }}" {{ old('supervisor_id', $employee->supervisor_id) == $supervisor->id ? 'selected' : '' }}>
+                                                        {{ $supervisor->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             @error('supervisor_id')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
-                                    </div>
+                                        </div>
 
                                     <div class="col-12 d-flex justify-content-start">
                                         <button type="submit" class="btn btn-primary me-1 mb-1">Update Employee</button>
