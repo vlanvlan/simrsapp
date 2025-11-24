@@ -46,7 +46,7 @@
                         <tbody>
                             @foreach ($input_saldos as $input_saldo)
                                 <tr>
-                                    <td>{{ $input_saldo->bankAccount ? $input_saldo->bankAccount->account_name : 'No Bank Account' }}</td>
+                                    <td>{{ $input_saldo->bankAccount ? $input_saldo->bankAccount->account_number : 'No Bank Account' }}</td>
                                     <td>{{ $input_saldo->balance_date }}</td>
                                     <td>{{ number_format($input_saldo->amount, 2) }}</td>
                                 </tr>

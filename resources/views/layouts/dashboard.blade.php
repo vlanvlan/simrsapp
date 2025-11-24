@@ -116,7 +116,7 @@
                             class="sidebar-item {{ request()->is('banks*') ? 'active' : '' }}">
                             <a href="{{ route('banks.index') }}" class='sidebar-link'>
                                 <i class="bi bi-bank2"></i>
-                                <span>Banks</span>
+                                <span>Bank Accounts</span>
                             </a>
                         </li>
 
