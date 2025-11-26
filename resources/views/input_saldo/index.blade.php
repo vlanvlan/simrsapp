@@ -24,7 +24,7 @@
             <div class="card-body">
 
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('units.create') }}" class="btn btn-primary">Add New Unit</a>
+                    <a href="{{ route('input-saldo.create') }}" class="btn btn-primary">Add Saldo</a>
                 </div>
 
                 @if(session('success'))
@@ -39,6 +39,10 @@
                             <tr>
                                 <th>Bank Account</th>
                                 <th>Balance Date</th>
+                                <th>In</th>
+                                <th>Out</th>
+                                <th>Masuk Pindah Buku</th>
+                                <th>Keluar Pindah Buku</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
@@ -48,7 +52,11 @@
                                 <tr>
                                     <td>{{ $input_saldo->bankAccount ? $input_saldo->bankAccount->account_number : 'No Bank Account' }}</td>
                                     <td>{{ $input_saldo->balance_date }}</td>
-                                    <td>{{ number_format($input_saldo->amount, 2) }}</td>
+                                    <td>{{ $input_saldo->in }}</td>
+                                    <td>{{ $input_saldo->out }}</td>
+                                    <td>{{ $input_saldo->masuk_pindah_buku }}</td>
+                                    <td>{{ $input_saldo->keluar_pindah_buku }}</td>
+                                    <td>{{ number_format($input_saldo->balance_amount, 2, ',', '.') }}</td>
                                 </tr>
                             @endforeach
 

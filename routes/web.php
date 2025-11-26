@@ -44,7 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/financial-branches', FinancialBranchController::class);
 
     // Input Saldo Routes
-    Route::get('/input-saldo', [InputSaldoController::class, 'index'])->name('input-saldo.index');
+    Route::get('/input-saldo/bank-accounts', [InputSaldoController::class, 'getBankAccountsByInstitution'])->name('input_saldo.bank_accounts');
+    Route::get('/input-saldo/last-balance', [InputSaldoController::class, 'getLastBalance'])->name('input_saldo.last_balance');
+    Route::resource('/input-saldo', InputSaldoController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
