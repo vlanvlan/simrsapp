@@ -24,25 +24,27 @@ class InputSaldoController extends Controller
     public function getBankAccountsByInstitution(Request $request)
     {
         $institutionId = $request->get('institution_id');
+        // For balance input, show current accounts and savings (typical operational accounts)
         $bankAccounts = Bank::where('institution_id', $institutionId)
                           ->where('is_active', true)
+                          ->whereIn('instrument_type', ['current_account', 'savings'])
                           ->with(['financialInstitution', 'branch'])
                           ->get();
-        
+
         return response()->json($bankAccounts);
     }
 
     public function getLastBalance(Request $request)
     {
         $bankAccountId = $request->get('bank_account_id');
-        
+
         $lastBalance = InputSaldo::where('bank_account_id', $bankAccountId)
                                 ->orderBy('balance_date', 'desc')
                                 ->orderBy('created_at', 'desc')
                                 ->first();
-        
+
         $previousBalance = $lastBalance ? $lastBalance->balance_amount : 0;
-        
+
         return response()->json(['previous_balance' => $previousBalance]);
     }    public function store(Request $request)
     {

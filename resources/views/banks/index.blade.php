@@ -40,6 +40,7 @@
                             <th>Account Number</th>
                             <th>Bank</th>
                             <th>Account Type</th>
+                            <th>Instrument Type</th>
                             <th>Currency</th>
                             <th>Option</th>
                         </tr>
@@ -52,6 +53,11 @@
                             <td>{{ $bank->account_number }}</td>
                             <td>{{ $bank->financialInstitution ? $bank->financialInstitution->name : 'No Bank' }}</td>
                             <td>{{ $bank->account_type }}</td>
+                            <td>
+                                <span class="badge bg-primary">
+                                    {{ $bank->formatted_instrument_type }}
+                                </span>
+                            </td>
                             <td>{{ $bank->currency }}</td>
                             <td>
                                 <a href="{{ route('banks.edit', $bank->id) }}" class="btn btn-sm btn-warning">Edit</a>

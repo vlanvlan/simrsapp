@@ -104,6 +104,21 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="instrument_type" class="form-label">Instrument Type</label>
+                        <select class="form-select" id="instrument_type" name="instrument_type" required>
+                            <option value="">Select Instrument Type</option>
+                            <option value="current_account" {{ old('instrument_type', $bank->instrument_type) == 'current_account' ? 'selected' : '' }}>Current Account</option>
+                            <option value="savings" {{ old('instrument_type', $bank->instrument_type) == 'savings' ? 'selected' : '' }}>Savings</option>
+                            <option value="deposit" {{ old('instrument_type', $bank->instrument_type) == 'deposit' ? 'selected' : '' }}>Deposit</option>
+                            <option value="bond" {{ old('instrument_type', $bank->instrument_type) == 'bond' ? 'selected' : '' }}>Bond</option>
+                            <option value="money_market" {{ old('instrument_type', $bank->instrument_type) == 'money_market' ? 'selected' : '' }}>Money Market</option>
+                        </select>
+                        @error('instrument_type')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label for="currency" class="form-label">Currency</label>
                         <select class="form-select" id="currency" name="currency" required>
                             <option value="">Select Currency</option>

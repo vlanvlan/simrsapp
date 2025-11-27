@@ -11,6 +11,7 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\FinancialInstitutionController;
 use App\Http\Controllers\FinancialBranchController;
 use App\Http\Controllers\InputSaldoController;
+use App\Http\Controllers\DepositController;
 
 
 Route::get('/', function () {
@@ -47,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/input-saldo/bank-accounts', [InputSaldoController::class, 'getBankAccountsByInstitution'])->name('input_saldo.bank_accounts');
     Route::get('/input-saldo/last-balance', [InputSaldoController::class, 'getLastBalance'])->name('input_saldo.last_balance');
     Route::resource('/input-saldo', InputSaldoController::class);
+
+    // Deposit Routes
+    Route::resource('/deposits', DepositController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

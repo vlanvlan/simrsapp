@@ -145,6 +145,14 @@
                         </li>
 
                         <li
+                            class="sidebar-item {{ request()->is('deposits*') ? 'active' : '' }}">
+                            <a href="{{ route('deposits.index') }}" class='sidebar-link'>
+                                <i class="bi bi-piggy-bank-fill"></i>
+                                <span>Deposits</span>
+                            </a>
+                        </li>
+
+                        <li
                             class="sidebar-item {{ request()->is('users*') ? 'active' : '' }}">
                             <a href="{{ route('users.index') }}" class='sidebar-link'>
                                 <i class="bi bi-people-fill"></i>

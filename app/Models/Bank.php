@@ -18,6 +18,7 @@ class Bank extends Model
         'institution_id',
         'branch_id',
         'account_type',
+        'instrument_type',
         'currency',
         'opened_date',
         'closed_date',
@@ -33,5 +34,32 @@ class Bank extends Model
     public function branch()
     {
         return $this->belongsTo(FinancialBranch::class, 'branch_id');
+    }
+
+    // Scopes
+    public function scopeByInstrumentType($query, $type)
+    {
+        return $query->where('instrument_type', $type);
+    }
+
+    public function scopeActiveDeposits($query)
+    {
+        return $query->where('is_active', true)->where('instrument_type', 'deposit');
+    }
+
+    public function scopeActiveBonds($query)
+    {
+        return $query->where('is_active', true)->where('instrument_type', 'bond');
+    }
+
+    public function scopeActiveCurrentAccounts($query)
+    {
+        return $query->where('is_active', true)->where('instrument_type', 'current_account');
+    }
+
+    // Helper method to get formatted instrument type
+    public function getFormattedInstrumentTypeAttribute()
+    {
+        return ucwords(str_replace('_', ' ', $this->instrument_type));
     }
 }
