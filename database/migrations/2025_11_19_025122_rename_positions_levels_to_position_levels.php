@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::rename('positions_levels', 'position_levels');
+        // Table was already created with the correct name 'position_levels' in the original migration
+        // No action needed
     }
 
     /**
@@ -19,6 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::rename('position_levels', 'positions_levels');
+        // No action needed as no rename was performed
     }
 };

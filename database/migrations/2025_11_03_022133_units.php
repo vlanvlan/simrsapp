@@ -21,7 +21,7 @@ return new class extends Migration
 
         Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id')->nullable()->constrained('units')->nullOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('units')->noActionOnDelete();
             $table->foreignId('unit_type_id')->constrained('unit_types');
             $table->string('code')->unique();
             $table->string('name');

@@ -26,7 +26,7 @@
                 <a href="index.html"><img src="{{ asset('mazer/dist/assets/compiled/svg/logo.svg') }}" alt="Logo"></a>
             </div>
             <h1 class="auth-title">Log in.</h1>
-            <p class="auth-subtitle mb-5">Log in with your employee code and password.</p>
+            <p class="auth-subtitle mb-5">Log in with your employee code or email and password.</p>
 
             @if($errors->any())
                 <div class="alert alert-danger">
@@ -41,7 +41,7 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="text" class="form-control form-control-xl" name="employee_code" placeholder="Employee Code" value="{{ old('employee_code') }}" required>
+                    <input type="text" class="form-control form-control-xl" name="login_identifier" placeholder="Employee Code or Email" value="{{ old('login_identifier') }}" required>
                     <div class="form-control-icon">
                         <i class="bi bi-person"></i>
                     </div>

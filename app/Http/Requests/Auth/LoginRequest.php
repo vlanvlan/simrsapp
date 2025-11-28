@@ -28,7 +28,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_code' => ['required', 'string'],
+            'login_identifier' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -42,27 +42,34 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        // Find user by employee code
-        $employee = \App\Models\Employee::where('employee_code', $this->employee_code)->first();
-        
-        if (!$employee || !$employee->user) {
-            RateLimiter::hit($this->throttleKey());
-            
-            throw ValidationException::withMessages([
-                'employee_code' => 'Invalid employee code or user account not found.',
-            ]);
+        $loginIdentifier = $this->login_identifier;
+        $user = null;
+
+        // Check if login identifier is an email
+        if (filter_var($loginIdentifier, FILTER_VALIDATE_EMAIL)) {
+            // Direct email authentication
+            if (Auth::attempt(['email' => $loginIdentifier, 'password' => $this->password], $this->boolean('remember'))) {
+                RateLimiter::clear($this->throttleKey());
+                return;
+            }
+        } else {
+            // Try employee code authentication
+            $employee = \App\Models\Employee::where('employee_code', $loginIdentifier)->first();
+
+            if ($employee && $employee->user) {
+                // Attempt authentication with the user's email and provided password
+                if (Auth::attempt(['email' => $employee->user->email, 'password' => $this->password], $this->boolean('remember'))) {
+                    RateLimiter::clear($this->throttleKey());
+                    return;
+                }
+            }
         }
 
-        // Attempt authentication with the user's email and provided password
-        if (! Auth::attempt(['email' => $employee->user->email, 'password' => $this->password], $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        RateLimiter::hit($this->throttleKey());
 
-            throw ValidationException::withMessages([
-                'employee_code' => 'Invalid credentials.',
-            ]);
-        }
-
-        RateLimiter::clear($this->throttleKey());
+        throw ValidationException::withMessages([
+            'login_identifier' => 'Invalid credentials.',
+        ]);
     }
 
     /**
@@ -81,7 +88,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'employee_code' => trans('auth.throttle', [
+            'login_identifier' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -93,6 +100,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('employee_code')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('login_identifier')).'|'.$this->ip());
     }
 }

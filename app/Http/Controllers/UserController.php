@@ -22,11 +22,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = collect([
-            (object)['name' => 'user'],
-            (object)['name' => 'admin'],
-            (object)['name' => 'superadmin'],
-        ]);
+        $roles = [
+            'user',
+            'admin',
+            'superadmin',
+        ];
 
         // Only get employees who don't have a user account yet
         $employees = Employee::whereDoesntHave('user')->get();
@@ -41,7 +41,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|in:user,admin,superadmin',
-            'employee_id' => 'required|exists:employees,id|unique:users,employee_id',
+            'employee_id' => 'nullable|exists:employees,id|unique:users,employee_id',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -55,11 +55,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = collect([
-            (object)['name' => 'user'],
-            (object)['name' => 'admin'],
-            (object)['name' => 'superadmin'],
-        ]);
+        $roles = [
+            'user',
+            'admin',
+            'superadmin',
+        ];
 
         // Get employees who don't have a user account, plus the current user's employee
         $employees = Employee::where(function($query) use ($id) {
@@ -84,7 +84,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
             'role' => 'required|in:user,admin,superadmin',
-            'employee_id' => 'required|exists:employees,id|unique:users,employee_id,' . $id,
+            'employee_id' => 'nullable|exists:employees,id|unique:users,employee_id,' . $id,
             'status' => 'required|in:active,inactive',
         ]);
 

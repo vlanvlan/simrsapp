@@ -83,8 +83,8 @@
                         <select class="form-select" id="role" name="role" required>
                             <option value="" disabled>Select Role</option>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->name }}" {{ old('role', $user->role) == $role->name ? 'selected' : '' }}>
-                                    {{ ucfirst($role->name) }}
+                                <option value="{{ $role }}" {{ old('role', $user->role) == $role ? 'selected' : '' }}>
+                                    {{ ucfirst($role) }}
                                 </option>
                             @endforeach
                         </select>
@@ -94,9 +94,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="employee_id" class="form-label">Employee</label>
-                        <select class="form-select" id="employee_id" name="employee_id" required>
-                            <option value="" disabled {{ old('employee_id', $user->employee_id) ? '' : 'selected' }}>Select Employee</option>
+                        <label for="employee_id" class="form-label">Employee <small class="text-muted">(optional)</small></label>
+                        <select class="form-select" id="employee_id" name="employee_id">
+                            <option value="" {{ old('employee_id', $user->employee_id) ? '' : 'selected' }}>No Employee</option>
                             @foreach ($employees as $employee)
                                 <option value="{{ $employee->id }}" {{ old('employee_id', $user->employee_id) == $employee->id ? 'selected' : '' }}>
                                     {{ $employee->name }} ({{ $employee->employee_code }})

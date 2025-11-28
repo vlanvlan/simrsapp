@@ -25,7 +25,7 @@ class positions extends Seeder
         ];
 
         foreach ($positionLevels as $level) {
-            DB::table('positions_levels')->insert([
+            DB::table('position_levels')->insert([
                 'code' => strtoupper($faker->bothify('LVL-###??')),
                 'name' => $level['name'],
                 'rank_order' => null,

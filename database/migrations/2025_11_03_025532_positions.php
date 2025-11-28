@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignId('position_level_id')->constrained('position_levels');
             $table->string('code')->unique();
             $table->string('name');
-            $table->foreignId('parent_id')->nullable()->constrained('positions')->nullOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('positions')->noActionOnDelete();
             $table->string('is_managerial')->default('N');
             $table->string('description')->nullable();
             $table->timestamps();
