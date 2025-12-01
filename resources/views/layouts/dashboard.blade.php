@@ -77,6 +77,14 @@
                         </li>
 
                         <li
+                            class="sidebar-item {{ request()->is('profile*') ? 'active' : '' }}">
+                            <a href="{{ route('profile.index') }}" class='sidebar-link'>
+                                <i class="bi bi-person-fill"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+
+                        <li
                             class="sidebar-item has-sub {{ request()->is('employees*') || request()->is('units*') || request()->is('positions*') ? 'active' : '' }}">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
@@ -229,7 +237,12 @@
                                     </div>
                                     <div class="user-img d-flex align-items-center">
                                         <div class="avatar avatar-md">
-                                            <img src="{{ Auth::user()->employee && Auth::user()->employee->gender == 'female' ? asset('mazer/dist/assets/compiled/jpg/5.jpg') : asset('mazer/dist/assets/compiled/jpg/2.jpg') }}">
+                                            <img src="{{ Auth::user()->employee && Auth::user()->employee->profile_picture
+                                                ? asset('storage/' . Auth::user()->employee->profile_picture)
+                                                : (Auth::user()->employee && Auth::user()->employee->gender == 'female'
+                                                    ? asset('mazer/dist/assets/static/images/faces/2.jpg')
+                                                    : asset('mazer/dist/assets/static/images/faces/1.jpg')) }}"
+                                                 style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
                                         </div>
                                     </div>
                                 </div>
@@ -238,7 +251,7 @@
                                 <li>
                                     <h6 class="dropdown-header">Hello, {{ Auth::user()->name }}!</h6>
                                 </li>
-                                <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
+                                <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i class="icon-mid bi bi-person me-2"></i> My
                                         Profile</a></li>
                                 <li>
                                     <hr class="dropdown-divider">

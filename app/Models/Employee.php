@@ -25,6 +25,7 @@ class Employee extends Model
         'birth_date',
         'address',
         'phone',
+        'profile_picture',
         'supervisor_id',
     ];
 
