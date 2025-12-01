@@ -32,6 +32,29 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        // Examples of adding columns after table creation
+        // Uncomment and modify as needed:
+        
+        // Schema::table('units', function (Blueprint $table) {
+        //     // Add new columns
+        //     $table->string('new_column')->nullable()->after('description');
+        //     $table->integer('sort_order')->default(0);
+        //     $table->boolean('is_department')->default(false);
+        //     $table->decimal('budget', 15, 2)->nullable();
+        //     $table->text('notes')->nullable();
+        // });
+
+        // Examples of renaming columns
+        // Schema::table('units', function (Blueprint $table) {
+        //     $table->renameColumn('old_column_name', 'new_column_name');
+        // });
+
+        // Examples of modifying column types
+        // Schema::table('units', function (Blueprint $table) {
+        //     $table->text('description')->nullable()->change(); // Change from string to text
+        //     $table->string('name', 500)->change(); // Change length
+        // });
     }
 
     /**
@@ -39,6 +62,18 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Reverse any column additions/modifications first
+        // Schema::table('units', function (Blueprint $table) {
+        //     // Drop added columns
+        //     $table->dropColumn(['new_column', 'sort_order', 'is_department', 'budget', 'notes']);
+        //     
+        //     // Reverse column renames
+        //     $table->renameColumn('new_column_name', 'old_column_name');
+        //     
+        //     // Reverse column type changes
+        //     $table->string('description')->nullable()->change();
+        // });
+
         Schema::dropIfExists('units');
         Schema::dropIfExists('unit_types');
     }

@@ -113,43 +113,67 @@
                         </li>
 
                         <li
-                            class="sidebar-item {{ request()->is('banks*') ? 'active' : '' }}">
-                            <a href="{{ route('banks.index') }}" class='sidebar-link'>
-                                <i class="bi bi-bank2"></i>
-                                <span>Bank Accounts</span>
+                            class="sidebar-item has-sub {{ request()->is('financial-institutions*') || request()->is('financial-branches*') ? 'active' : '' }}">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-building"></i>
+                                <span>Bank Setup</span>
                             </a>
+
+                            <ul class="submenu">
+
+                                <li
+                                    class="submenu-item {{ request()->is('banks*') ? 'active' : '' }}">
+                                    <a href="{{ route('banks.index') }}" class='submenu-link'>
+                                        <i class="bi bi-bank2"></i>
+                                        <span>Bank Accounts</span>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="submenu-item {{ request()->is('financial-institutions*') ? 'active' : '' }}">
+                                    <a href="{{ route('financial-institutions.index') }}" class='submenu-link'>
+                                        <i class="bi bi-building-fill"></i>
+                                        <span>Financial Institutions</span>
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="submenu-item {{ request()->is('financial-branches*') ? 'active' : '' }}">
+                                    <a href="{{ route('financial-branches.index') }}" class='submenu-link'>
+                                        <i class="bi bi-diagram-3-fill"></i>
+                                        <span>Financial Branches</span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
 
                         <li
-                            class="sidebar-item {{ request()->is('financial-institutions*') ? 'active' : '' }}">
-                            <a href="{{ route('financial-institutions.index') }}" class='sidebar-link'>
-                                <i class="bi bi-building-fill"></i>
-                                <span>Financial Institutions</span>
+                            class="sidebar-item has-sub {{ request()->is('banks*') || request()->is('input-saldo*') || request()->is('deposits*') ? 'active' : '' }}">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-currency-dollar"></i>
+                                <span>Financial Operations</span>
                             </a>
-                        </li>
 
-                        <li
-                            class="sidebar-item {{ request()->is('financial-branches*') ? 'active' : '' }}">
-                            <a href="{{ route('financial-branches.index') }}" class='sidebar-link'>
-                                <i class="bi bi-diagram-3-fill"></i>
-                                <span>Financial Branches</span>
-                            </a>
-                        </li>
+                            <ul class="submenu">
 
-                        <li
-                            class="sidebar-item {{ request()->is('input-saldo*') ? 'active' : '' }}">
-                            <a href="{{ route('input-saldo.index') }}" class='sidebar-link'>
-                                <i class="bi bi-wallet2"></i>
-                                <span>Saldo</span>
-                            </a>
-                        </li>
+                                <li
+                                    class="submenu-item {{ request()->is('input-saldo*') ? 'active' : '' }}">
+                                    <a href="{{ route('input-saldo.index') }}" class='submenu-link'>
+                                        <i class="bi bi-wallet2"></i>
+                                        <span>Saldo</span>
+                                    </a>
+                                </li>
 
-                        <li
-                            class="sidebar-item {{ request()->is('deposits*') ? 'active' : '' }}">
-                            <a href="{{ route('deposits.index') }}" class='sidebar-link'>
-                                <i class="bi bi-piggy-bank-fill"></i>
-                                <span>Deposits</span>
-                            </a>
+                                <li
+                                    class="submenu-item {{ request()->is('deposits*') ? 'active' : '' }}">
+                                    <a href="{{ route('deposits.index') }}" class='submenu-link'>
+                                        <i class="bi bi-piggy-bank-fill"></i>
+                                        <span>Deposits</span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
 
                         <li
